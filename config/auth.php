@@ -44,6 +44,7 @@ return [
             'driver' => 'jwt', // <-- set ke "jwt"
             'provider' => 'users',
             'hash' => false,
+        ],
     ],
 
     /*
