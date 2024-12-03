@@ -11,7 +11,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+// import JWTSubject
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject // <-- tambahkan 
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles; // tambahkan HasRoles
@@ -66,7 +69,26 @@ class User extends Authenticatable
      */
     public function getPermissionArray() {
         return $this->getAllPermissions()->mapWithKeys(function($pr) {
-            return [$pr->name => true];
+            return [$pr['name'] => true];
         });
+    }
+
+    // 
+    /**
+     * getJWTIdentifier
+     * 
+     * @return void
+     */
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    /**
+     * getJWTCustomClaims
+     * 
+     * @return void 
+     */
+    public function getJWTCustomClaims() {
+        return [];
     }
 }

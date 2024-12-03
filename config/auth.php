@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt', // <-- set ke "jwt"
+            'provider' => 'users',
+            'hash' => false,
     ],
 
     /*
