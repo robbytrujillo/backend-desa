@@ -90,4 +90,34 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan
     public function getJWTCustomClaims() {
         return [];
     }
+
+    // 1 user memiliki banyak post
+    /**
+     * posts
+     * 
+     * @return void
+     */
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
+    // 1 user memilik banyak product
+    /**
+     * products
+     * 
+     * @return void
+     */
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
+
+    // 1 user memiliki banyak page
+    /**
+     * pages
+     * 
+     * @return void
+     */
+    public function pages() {
+        return $this->hasMany(Page::class);
+    }
 }

@@ -19,4 +19,15 @@ class Category extends Model
     protected $fillable = [
         'name', 'slug'
     ];
+
+    
+     // 1 data category memiliki banyak data post 
+    /**
+     * posts
+     * 
+     * @return void
+     */
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
 }
