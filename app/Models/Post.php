@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+// import Eloquent Attribute
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 class Post extends Model
 {
     //
@@ -37,5 +40,16 @@ class Post extends Model
      */
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * image
+     * 
+     * @return Attribute
+     */
+    protected function image(): Attribute { // membuat method baru bernama image
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image), // melakukan return dengan path
+        );
     }
 }
