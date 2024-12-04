@@ -63,7 +63,7 @@ class PermissionsTableSeeder extends Seeder
         // permission for photos
          Permission::create(['name' => 'photos.index', 'guard_name' => 'api']);
          Permission::create(['name' => 'photos.create', 'guard_name' => 'api']);
-         Permission::create(['name' => 'photos.edit', 'guard_name' => 'api']);
+        //  Permission::create(['name' => 'photos.edit', 'guard_name' => 'api']);
          Permission::create(['name' => 'photos.delete', 'guard_name' => 'api']);
         
         // permission for aparaturs
