@@ -26,5 +26,13 @@ Route::prefix('admin')->group(function () {
     ], function () {
         // dashboard
         Route::get('/dashboard', App\Http\Controllers\Api\Admin\DashboardController::class);
+    
+        // permissions
+        Route::get('/permissions', [\App\Http\Controllers\Api\Admin\PermissionController::class, 'index'])
+        ->middleware('permission:permissions.index');
+
+        // permissions all
+        Route::get('/permissions/all', [\App\Http\Controllers\Api\Admin\PermissionController::class, 'all'])
+        ->middleware('permission:permissions.index');
     });
 });
