@@ -34,5 +34,13 @@ Route::prefix('admin')->group(function () {
         // permissions all
         Route::get('/permissions/all', [\App\Http\Controllers\Api\Admin\PermissionController::class, 'all'])
         ->middleware('permission:permissions.index');
+
+        // roles all
+        Route::get('/roles/all', [\App\Http\Controllers\Api\Admin\RoleController::class, 'all'])
+        ->middleware('permission:roles.index');
+
+        // roles
+        Route::get('/roles', App\Http\Controllers\Api\Admin\RoleController::class)
+        ->middleware('permission:roles.index');
     });
 });

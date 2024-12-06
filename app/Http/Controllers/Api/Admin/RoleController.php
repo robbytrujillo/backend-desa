@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoleResource;
-use Spatie\Permission\Models\Role;
+use App\Http\Resources\RoleResource; // import API Resource RoleResource
+use Spatie\Permission\Models\Role; // impory model role dari laravel spatie
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
