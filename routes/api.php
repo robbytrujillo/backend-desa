@@ -41,6 +41,6 @@ Route::prefix('admin')->group(function () {
 
         // roles
         Route::get('/roles', App\Http\Controllers\Api\Admin\RoleController::class)
-        ->middleware('permission:roles.index');
+        ->middleware('permission:roles.index|roles.store|roles.update|roles.delete');
     });
 });
