@@ -39,7 +39,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
             'email'    => 'required|unique:users',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         if ($user) {
             // return success with Api Resource
-            return new UserResource(true, 'User Created Successfully', $user);
+            return new UserResource(true, 'Data User Berhasil Disimpan!', $user);
         }
 
         // return failed with Api Resource
