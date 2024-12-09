@@ -12,5 +12,14 @@ use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+        $posts = Post::with('user', 'category')->when(request()->search, function ($posts) {
+            $posts = $posts->where('title', 'like' . request()->search . '%');
+        });
+    }
 }
