@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user', 'category')->when(request()->search, function ($posts) {
+        $posts = Post::with('user', 'category')->whitCount('views')->when(request()->search, function ($posts) {
             $posts = $posts->where('title', 'like', '%' . request()->search . '%');
         })->where('user_id', auth()->user()->id)->latest()->paginate(5);
 
