@@ -77,5 +77,106 @@ class ProductController extends Controller
         return new ProductResource(false, 'Data Product Gagal Disimpan', null);
     }
 
-    
+    /**
+     * Display the specified resource
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) {
+        $product = Product::whereId($id)->first();
+
+        if ($product) {
+            // return success with Api Resource
+            return new ProductResource(true, 'Detail Data Product!', $product);
+        }
+
+        // return failed with Api Resource
+        return new ProductResource(false, 'Detail Data Product Tidak Ditemukan!', null);
+    }
+
+    /**
+     * Update the spesified resource in storage. 
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $product) {
+        $validator = Validator::make($request->all(),[
+            'title'     => 'required',
+            'content'   => 'required',
+            'owner'   => 'required',
+            'price'   => 'required',
+            'address'   => 'required',
+            'phone'   => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // check image update
+        if ($request->file('image')) {
+
+            // remove old image
+            Storage::disk('local')->delete('public/products/' . basename($product->image));
+        
+            // upload new image
+            $image = $request->file('image');
+            $image->storeAs('public/products', $image->hashName());
+
+            // update Product with new image
+            $product->update([
+                'image'     => $image->hashName(),
+                'title'     => $request->title,
+                'slug'      => Str::slug($request->title, '-'),
+                'content'   => $request->content,
+                'owner'     => $request->owner,
+                'price'     => $request->price,
+                'address'   => $request->address,
+                'phone'     => $request->phone,
+                'user_id'   => auth()->guard('api')->user()->id,
+            ]);
+        }
+
+        // update Product without image
+        $product->update([
+            'title' => $request->title,
+            'slug'  => Str::slug($request->title, '-'),
+            'content' => $request->content,
+            'owner' => $request->owner,
+            'price' => $request->price,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'user_id' => auth()->guard('api')->user()->id,
+        ]);
+
+        if ($product) {
+            // return success with Api Resource
+            return new ProductResource(true, 'Data Product Berhasil Diupdate!', $product);
+        }
+
+        // return failed with Api Resource
+        return new ProductResource(false, 'Data Product Gagal Diupdate!', null);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product) {
+        // remove image
+        Storage::disk('local')->delete('public/products/' . basename($product->image));
+
+        if ($product->delete()) {
+            // return success with Api Resource
+            return new ProductResource(true, 'Data Product Berhasil Dihapus!', null);
+        }
+        
+        // return failed with Api Resource
+        return new ProductResource(false, 'Data Product Gagal Dihapus!', null);
+    }
 }
