@@ -38,13 +38,13 @@ class ProductController extends Controller
      */
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
-            'image' => 'required|mimes:jpeg,jpg,png|max:2000',
-            'title' => 'required',
-            'content' => 'required',
-            'owner' => 'required',
-            'price' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
+            'image'     => 'required|mimes:jpeg,jpg,png|max:2000',
+            'title'     => 'required',
+            'content'   => 'required',
+            'owner'     => 'required',
+            'price'     => 'required',
+            'address'   => 'required',
+            'phone'     => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -57,15 +57,15 @@ class ProductController extends Controller
 
         // create Product
         $product = Product::create([
-            'image' => $image->hashName(),
-            'title' => $request->title,
-            'slug' => Str::slug($request->title, '-'),
-            'content' => $request->content,
-            'owner' => $request->owner,
-            'price' => $request->price,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'user_id' => auth()->guard('api')->user()->id,
+            'image'     => $image->hashName(),
+            'title'     => $request->title,
+            'slug'      => Str::slug($request->title, '-'),
+            'content'   => $request->content,
+            'owner'     => $request->owner,
+            'price'     => $request->price,
+            'address'   => $request->address,
+            'phone'     => $request->phone,
+            'user_id'   => auth()->guard('api')->user()->id,
         ]);
 
         if ($product) {
@@ -106,10 +106,10 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(),[
             'title'     => 'required',
             'content'   => 'required',
-            'owner'   => 'required',
-            'price'   => 'required',
+            'owner'     => 'required',
+            'price'     => 'required',
             'address'   => 'required',
-            'phone'   => 'required',
+            'phone'     => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -175,7 +175,7 @@ class ProductController extends Controller
             // return success with Api Resource
             return new ProductResource(true, 'Data Product Berhasil Dihapus!', null);
         }
-        
+
         // return failed with Api Resource
         return new ProductResource(false, 'Data Product Gagal Dihapus!', null);
     }
