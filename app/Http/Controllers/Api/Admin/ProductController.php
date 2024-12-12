@@ -142,14 +142,14 @@ class ProductController extends Controller
 
         // update Product without image
         $product->update([
-            'title' => $request->title,
-            'slug'  => Str::slug($request->title, '-'),
-            'content' => $request->content,
-            'owner' => $request->owner,
-            'price' => $request->price,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'user_id' => auth()->guard('api')->user()->id,
+            'title'     => $request->title,
+            'slug'      => Str::slug($request->title, '-'),
+            'content'   => $request->content,
+            'owner'     => $request->owner,
+            'price'     => $request->price,
+            'address'   => $request->address,
+            'phone'     => $request->phone,
+            'user_id'   => auth()->guard('api')->user()->id,
         ]);
 
         if ($product) {
