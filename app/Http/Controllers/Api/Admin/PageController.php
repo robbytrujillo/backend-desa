@@ -62,5 +62,20 @@ class PageController extends Controller
         return new PageResource(false, 'Data Page Gagal Disimpan!', null);   
     }
 
-    
+    /**
+     * Display the specified resource.
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) {
+        $page = Page::whereId($id)->first();
+
+        if ($page) {
+            // return success with Api Resource
+            return new PageResource(true, 'Detail Data Page!', $page);
+        }
+        // return failed with Api Resource
+        return new PageResource(false, 'Data Page Tidak Ditemukan!', null);
+    }    
 }
