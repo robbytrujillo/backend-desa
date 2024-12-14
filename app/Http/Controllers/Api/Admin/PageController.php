@@ -77,5 +77,54 @@ class PageController extends Controller
         }
         // return failed with Api Resource
         return new PageResource(false, 'Data Page Tidak Ditemukan!', null);
-    }    
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Page $page) {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        
+        // update page
+        $page->update([
+            'title' => $request->title,
+            'slug'  => Str::slug($request->title),
+            'content' => $request->content,
+            'user_id'   => auth()->guard('api')->user()->id
+        ]);
+
+        if ($page) {
+            // return success with Api Resource
+            return new PageResource(true, 'Data Page Berhasil Diupdate!', $page);
+        }
+        // return failed with Api Resource
+        return new PageResource(false, 'Data Page Gagal Diupdate!', null);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Page $page) {
+        if ($page->delete()) {
+            // return success with Api Resource
+            return new PageResource(true, 'Data Page Berhasil Dihapus!', null);
+        }
+        
+        // return failed with Api Resource
+        return new PageResource(false, 'Data Page Gagal Dihapus!', null);
+    }
 }
