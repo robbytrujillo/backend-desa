@@ -68,7 +68,7 @@ Route::prefix('admin')->group(function () {
         ->middleware('permission:pages.index|pages.store|pages.update|pages.delete');
     
         // Photos
-        Route::apiResource('/photos', App\Http\Controllers\Api\Admin\PhotoController::class)
+        Route::apiResource('/photos', App\Http\Controllers\Api\Admin\PhotoController::class, ['except' => ['create', 'show', 'update']])
         ->middleware('permission:photos.index|photos.store|photos.delete');
     });
 });
