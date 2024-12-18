@@ -24,51 +24,51 @@ Route::prefix('admin')->group(function () {
     Route::group([
         'middleware' => 'auth:api',
     ], function () {
-        // dashboard
+        //dashboard
         Route::get('/dashboard', App\Http\Controllers\Api\Admin\DashboardController::class);
-    
-        // permissions
+
+        //permissions
         Route::get('/permissions', [\App\Http\Controllers\Api\Admin\PermissionController::class, 'index'])
-        ->middleware('permission:permissions.index');
+            ->middleware('permission:permissions.index');
 
-        // permissions all
+        //permissions all
         Route::get('/permissions/all', [\App\Http\Controllers\Api\Admin\PermissionController::class, 'all'])
-        ->middleware('permission:permissions.index');
+            ->middleware('permission:permissions.index');
 
-        // roles all
-         Route::get('/roles/all', [\App\Http\Controllers\Api\Admin\RoleController::class, 'all'])
-         ->middleware('permission:roles.index');
- 
-        // roles
-         Route::apiResource('/roles', App\Http\Controllers\Api\Admin\RoleController::class)
-         ->middleware('permission:roles.index|roles.store|roles.update|roles.delete');
+        //roles all
+        Route::get('/roles/all', [\App\Http\Controllers\Api\Admin\RoleController::class, 'all'])
+            ->middleware('permission:roles.index');
 
-        // users
+        //roles
+        Route::apiResource('/roles', App\Http\Controllers\Api\Admin\RoleController::class)
+            ->middleware('permission:roles.index|roles.store|roles.update|roles.delete');
+
+        //users
         Route::apiResource('/users', App\Http\Controllers\Api\Admin\UserController::class)
-        ->middleware('permission:users.index|users.store|users.update|users.delete');
-        
-        // categories all
+            ->middleware('permission:users.index|users.store|users.update|users.delete');
+
+        //categories all
         Route::get('/categories/all', [\App\Http\Controllers\Api\Admin\CategoryController::class, 'all'])
-        ->middleware('permission:categories.index');
+            ->middleware('permission:categories.index');
 
-        // categories
+        //Categories
         Route::apiResource('/categories', App\Http\Controllers\Api\Admin\CategoryController::class)
-        ->middleware('permission:categories.index|categories.store|categroies.update|categories.delete');
-    
-        // Posts
-        Route::apiResource('/posts', App\Http\Controllers\Api\Admin\PostController::class)
-        ->middleware('permission:posts.index|posts.store|posts.update|posts.delete');
-    
-        // Products
-        Route::apiResource('/products', App\Http\Controllers\Api\Admin\ProductController::class)
-        ->middleware('permission:products.index|products.store|products.update|products.delete');
+            ->middleware('permission:categories.index|categories.store|categories.update|categories.delete');
 
-        // Pages
+        //Posts
+        Route::apiResource('/posts', App\Http\Controllers\Api\Admin\PostController::class)
+            ->middleware('permission:posts.index|posts.store|posts.update|posts.delete');
+
+        //Products
+        Route::apiResource('/products', App\Http\Controllers\Api\Admin\ProductController::class)
+            ->middleware('permission:products.index|products.store|products.update|products.delete');
+
+        //Pages
         Route::apiResource('/pages', App\Http\Controllers\Api\Admin\PageController::class)
-        ->middleware('permission:pages.index|pages.store|pages.update|pages.delete');
-    
-        // Photos
+            ->middleware('permission:pages.index|pages.store|pages.update|pages.delete');
+
+        //Photos
         Route::apiResource('/photos', App\Http\Controllers\Api\Admin\PhotoController::class, ['except' => ['create', 'show', 'update']])
-        ->middleware('permission:photos.index|photos.store|photos.delete');
+            ->middleware('permission:photos.index|photos.store|photos.delete');
     });
 });
