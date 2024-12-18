@@ -32,7 +32,7 @@ class SliderResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'success'    => $this->status,
+            'success'   => $this->status,
             'message'   => $this->message,
             'data'      => $this->resource,
         ];
