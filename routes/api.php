@@ -76,7 +76,7 @@ Route::prefix('admin')->group(function () {
             ->middleware('permission:sliders.index|sliders.store|sliders.delete');
     
         //Aparaturs
-        Route::apiResource('/aparaturs', App\Http\Controllers\Api\Admin\ApartmentController::class)
-        ->middleware('permission:aparaturs.index|aparaturs.store|aparaturs.update|aparaturs.delete');
+        Route::apiResource('/aparaturs', App\Http\Controllers\Api\Admin\AparaturController::class)
+            ->middleware('permission:aparaturs.index|aparaturs.store|aparaturs.update|aparaturs.delete');
     });
 });
