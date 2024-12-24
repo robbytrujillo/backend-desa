@@ -48,6 +48,6 @@ class PostController extends Controller
         $posts = Post::with('user', 'category')->latest()->take(6)->get();
 
         // return with Api Resource
-        return new PostResource(true, 'List Data Posts', $posts);
+        return new PostResource(true, 'List Data Post HomePage', $posts);
     }
 }
