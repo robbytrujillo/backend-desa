@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index() {
         $products = Product::latest()->paginate(9);
 
-        // return with Api Resoufce
+        // return with Api Resource
         return new ProductResource(true, 'List Dta Products', $products);
     }
 
