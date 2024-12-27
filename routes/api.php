@@ -102,4 +102,10 @@ Route::prefix('public')->group(function () {
 
     // index products home
     Route::get('/products_home', [App\Http\Controllers\Api\Public\ProductController::class, 'homePage']);
+
+    // index pages
+    Route::get('/pages', [App\Http\Controllers\Api\Public\PageController::class, 'index']);
+
+    // show page
+    Route::get('/pages/{slug}', [App\Http\Controllers\Api\Public\PageController::class, 'show']);
 });
