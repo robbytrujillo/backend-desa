@@ -108,4 +108,7 @@ Route::prefix('public')->group(function () {
 
     // show page
     Route::get('/pages/{slug}', [App\Http\Controllers\Api\Public\PageController::class, 'show']);
+
+    // index aparaturs
+    Route::get('/aparaturs', [App\Http\Controllers\Api\Public\AparaturController::class, 'index' ]);
 });
