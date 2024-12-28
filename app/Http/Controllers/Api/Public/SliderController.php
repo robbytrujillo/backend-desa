@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\Public;
 
-use App\Models\Photo;
+use App\Models\Slider;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PhotoResource;
+use App\Http\Resources\SliderResource;
 use Illuminate\Http\Request;
 
-class PhotoController extends Controller
+class SliderController extends Controller
 {
     /**
      * index
@@ -15,9 +15,9 @@ class PhotoController extends Controller
      * @return void
      */
     public function index() {
-        $photos = Photo::latest()->paginate(9);
+        $sliders = Slider::latest()->get();
 
         // return with Api Resource
-        return new PhotoResource(true, 'List Data Photos', $photos);
+        return new SliderResource(true, 'List Data Sliders', $sliders);
     }
 }
