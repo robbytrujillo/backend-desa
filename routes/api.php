@@ -114,4 +114,7 @@ Route::prefix('public')->group(function () {
 
     // index photos
     Route::get('/photos', [App\Http\Controllers\Api\Public\PhotoController::class, 'index']);
+
+    // index sliders
+    Route::get('/sliders', [App\Http\Controllers\Api\Public\SliderController::class, 'index']);
 });
