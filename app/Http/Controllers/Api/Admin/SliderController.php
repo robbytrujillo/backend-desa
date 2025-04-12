@@ -41,7 +41,8 @@ class SliderController extends Controller
 
         // upload image
         $image = $request->file('image');
-        $image->storeAs('public/sliders', $image->hashName());
+        // $image->storeAs('public/sliders', $image->hashName());
+        $image->storeAs('sliders', $image->hashName());
 
         $slider = Slider::create([
             'image' => $image->hashName(),
@@ -64,6 +65,7 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider) {
         // remove image
+        // Storage::disk('local')->delete('public/sliders/' . basename($slider->image));
         Storage::disk('local')->delete('public/sliders/' . basename($slider->image));
 
         if ($slider->delete()) {
