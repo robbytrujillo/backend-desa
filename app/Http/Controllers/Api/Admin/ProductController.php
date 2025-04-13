@@ -55,7 +55,8 @@ class ProductController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs('public/products', $image->hashName());
+        // $image->storeAs('public/products', $image->hashName());
+        $image->storeAs('products', $image->hashName());
 
         //create Product
         $product = Product::create([
@@ -124,11 +125,13 @@ class ProductController extends Controller
         if ($request->file('image')) {
 
             //remove old image
-            Storage::disk('local')->delete('public/products/' . basename($product->image));
+            // Storage::disk('local')->delete('public/products/' . basename($product->image));
+            Storage::disk('local')->delete('products/' . basename($product->image));
 
             //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/products', $image->hashName());
+            // $image->storeAs('public/products', $image->hashName());
+            $image->storeAs('products', $image->hashName());
 
             //update Product with new image
             $product->update([
@@ -174,7 +177,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //remove image
-        Storage::disk('local')->delete('public/products/' . basename($product->image));
+        // Storage::disk('local')->delete('public/products/' . basename($product->image));
+        Storage::disk('local')->delete('products/' . basename($product->image));
 
         if ($product->delete()) {
             //return success with Api Resource
