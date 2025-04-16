@@ -50,7 +50,8 @@ class AparaturController extends Controller
 
         //upload image
         $image = $request->file('image');
-        $image->storeAs('public/aparaturs', $image->hashName());
+        // $image->storeAs('public/aparaturs', $image->hashName());
+        $image->storeAs('aparaturs', $image->hashName());
 
         //create aparatur
         $aparatur = Aparatur::create([
@@ -109,11 +110,13 @@ class AparaturController extends Controller
         if ($request->file('image')) {
 
             //remove old image
-            Storage::disk('local')->delete('public/aparaturs/' . basename($aparatur->image));
+            // Storage::disk('local')->delete('public/aparaturs/' . basename($aparatur->image));
+            Storage::disk('local')->delete('aparaturs/' . basename($aparatur->image));
 
             //upload new image
             $image = $request->file('image');
-            $image->storeAs('public/aparaturs', $image->hashName());
+            // $image->storeAs('public/aparaturs', $image->hashName());
+            $image->storeAs('aparaturs', $image->hashName());
 
             //update aparatur with new image
             $aparatur->update([
@@ -147,7 +150,8 @@ class AparaturController extends Controller
     public function destroy(Aparatur $aparatur)
     {
         //remove image
-        Storage::disk('local')->delete('public/aparaturs/' . basename($aparatur->image));
+        // Storage::disk('local')->delete('public/aparaturs/' . basename($aparatur->image));
+        Storage::disk('local')->delete('aparaturs/' . basename($aparatur->image));
 
         if ($aparatur->delete()) {
             //return success with Api Resource
